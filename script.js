@@ -18,6 +18,9 @@ var xPosition = 0;
 var yPosition = 0;
 var scorer = null;
 var countdownNum = 3;
+const winningScore = 11;
+var endingStage = 0;
+var elapsedTime = 0;
 
 var keyState = {};
 window.addEventListener("keydown", function (e) {
@@ -54,8 +57,10 @@ function startGame() {
     gameNotStarted = false;
     document.getElementById("gameStatus").innerHTML = "";
     document.getElementById("gameStatus").style.display = "none";
-    xVelocity = randomVelocity(3, 5);
-    yVelocity = randomVelocity(3, 5);
+    document.querySelector("#playerOneScore p").innerHTML = playerOneScore;
+    document.querySelector("#playerTwoScore p").innerHTML = playerTwoScore;
+    xVelocity = randomVelocity(5, 7);
+    yVelocity = randomVelocity(5, 7);
     setTimeout(countDown, 100);
     setTimeout(function () {
         ball.style.display = "block";
@@ -127,11 +132,11 @@ function resetBall() {
     document.getElementById("scored").style.display = "none";
     document.getElementById("scored").innerHTML = "";
     if (scorer === 1) {
-        xVelocity = Math.abs(randomVelocity(3, 5)) * -1;
+        xVelocity = Math.abs(randomVelocity(5, 7)) * -1;
     } else {
-        xVelocity = Math.abs(randomVelocity(3, 5));
+        xVelocity = Math.abs(randomVelocity(5, 7));
     }
-    yVelocity = randomVelocity(3, 5);
+    yVelocity = randomVelocity(5, 7);
     countdownNum = 3;
     setTimeout(countDown, 100);
     setTimeout(function () {
@@ -145,6 +150,10 @@ function resetBall() {
 }
 
 function bounce() {
+    if (Math.abs(xVelocity) <= 8.5 && elapsedTime >= 0.5) {
+        xVelocity *= 1.01;
+        elapsedTime = 0;
+    }
     yPosition -= yVelocity;
     xPosition += xVelocity;
     if (yPosition <= 0) {
@@ -181,6 +190,7 @@ function bounce() {
     }
     ball.style.top = yPosition + "px";
     ball.style.left = xPosition + "px";
+    elapsedTime += 0.01;
 }
 
 function countDown() {
@@ -219,7 +229,43 @@ function playerScored() {
         document.querySelector("#playerTwoScore p").innerHTML = playerTwoScore;
         scoredElement.innerHTML = "Player 2 scored!";
     }
-    setTimeout(resetBall, 1500);
+    if (playerOneScore === winningScore || playerTwoScore === winningScore) {
+        setTimeout(endGame, 1500);
+    } else {
+        setTimeout(resetBall, 1500);
+    }
+}
+
+function endGame() {
+    endingStage++;
+    if (endingStage === 1) {
+        var scoredElement = document.getElementById("scored");
+        if (scorer === 1) {
+            scoredElement.innerHTML = "Player 1 wins!";
+        } else {
+            scoredElement.innerHTML = "Player 2 wins!";
+        }
+        setTimeout(endGame, 1500);
+    } else {
+        document.getElementById("scored").style.display = "none";
+        document.getElementById("scored").innerHTML = "";
+        ball.style.top = (innerHeight / 2) - ballHeight / 2 + "px";
+        ball.style.left = (innerWidth / 2) - ballHeight / 2 + "px";
+        playerOneBar.style.top = (innerHeight / 2) - 63 + "px";
+        playerTwoBar.style.top = (innerHeight / 2) - 63 + "px";
+        playerOneLocation = [playerOneBar.offsetTop, playerOneBar.offsetTop + 125];
+        playerTwoLocation = [playerTwoBar.offsetTop, playerTwoBar.offsetTop + 125];
+        yVelocity = 0;
+        xVelocity = 0;
+        playerOneScore = 0;
+        playerTwoScore = 0;
+        gameNotStarted = true;
+        countdownNum = 3;
+        endingStage = 0;
+        document.getElementById("gameStatus").style.display = "block";
+        document.getElementById("gameStatus").innerHTML = "Enter to Play Again!";
+        setTimeout(gameWaiting, 900);
+    }
 }
 
 setTimeout(gameWaiting, 900);
