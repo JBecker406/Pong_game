@@ -1,0 +1,191 @@
+/*Imports Fonts*/
+@import url('https://fonts.googleapis.com/css?family=VT323');
+
+/* Reset Styles */
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+
+body {
+    line-height:1;
+}
+
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section { 
+    display:block;
+}
+
+nav ul {
+    list-style:none;
+}
+
+blockquote, q {
+    quotes:none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content:'';
+    content:none;
+}
+
+a {
+    margin:0;
+    padding:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+
+/* change colours to suit your needs */
+ins {
+    background-color:#ff9;
+    color:#000;
+    text-decoration:none;
+}
+
+/* change colours to suit your needs */
+mark {
+    background-color:#ff9;
+    color:#000; 
+    font-style:italic;
+    font-weight:bold;
+}
+
+del {
+    text-decoration: line-through;
+}
+
+abbr[title], dfn[title] {
+    border-bottom:1px dotted;
+    cursor:help;
+}
+
+table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+
+/* change border colour to suit your needs */
+hr {
+    display:block;
+    height:1px;
+    border:0;   
+    border-top:1px solid #cccccc;
+    margin:1em 0;
+    padding:0;
+}
+
+input, select {
+    vertical-align:middle;
+}
+
+/*Personal Styles*/
+
+body {
+    font-family: 'VT323', monospace;
+    background-color: black;
+    color: white;
+}
+
+#ball {
+    display: none;
+    height: 15px;
+    width: 15px;
+    border-radius: 12.5px;
+    position: absolute;
+}
+
+#leftW, #rightW {
+    position: absolute;
+    background-color: black;
+    width: 1px;
+}
+
+#roof, #floor {
+    position: absolute;
+    background-color: black;
+    height: 1px;
+}
+
+#playerOneBar, #playerTwoBar {
+    background-color: black;
+    position: absolute;
+    height: 125px;
+    width: 8px;
+}
+
+#playerOneBar {
+    left: 10px;
+}
+
+#playerTwoBar {
+    right: 10px;
+}
+
+#gameStatus, #countdown, #scored {
+    text-align: center;
+    position: absolute;
+    top: 40%;
+    font-size: 7.5vw;
+}
+
+#gameStatus {
+    left: 20%;
+}
+
+#scored {
+    left: 27%;
+}
+
+#countdown {
+    left: 48.5%;
+}
+
+#ball, #playerOneBar, #playerTwoBar {
+    background-color: white;
+}
+
+#playerOneScore, #playerTwoScore {
+    position: absolute;
+    top: 0;
+}
+
+#playerOneScore h1, #playerTwoScore h1 {
+    font-size: 5vw;
+}
+
+#playerOneScore p, #playerTwoScore p {
+    text-align: center;
+    font-size: 7em;
+}
+
+
+#playerOneScore {
+    left: 15%;
+}
+
+#playerTwoScore {
+    right: 15%;
+}
+
+#countdown {
+    display: none;
+}
