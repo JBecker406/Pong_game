@@ -158,7 +158,6 @@ function bounce() {
     } else {
         xVelocity += .002;
     }
-    document.getElementById("xVel").innerHTML = xVelocity;
     var newXPosition = xPosition + xVelocity;
     if (xVelocity < 0) {
         var xDir = -1;
