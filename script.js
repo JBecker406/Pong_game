@@ -20,7 +20,7 @@ var scorer = null;
 var countdownNum = 3;
 const winningScore = 11;
 var endingStage = 0;
-var elapsedTime = 0;
+var hit = null;
 
 var keyState = {};
 window.addEventListener("keydown", function (e) {
@@ -59,8 +59,10 @@ function startGame() {
     document.getElementById("gameStatus").style.display = "none";
     document.querySelector("#playerOneScore p").innerHTML = playerOneScore;
     document.querySelector("#playerTwoScore p").innerHTML = playerTwoScore;
-    xVelocity = randomVelocity(5, 7);
+    xVelocity = randomVelocity(5, 6);
     yVelocity = randomVelocity(5, 7);
+    // xVelocity = 15;
+    // yVelocity = 0;
     setTimeout(countDown, 100);
     setTimeout(function () {
         ball.style.display = "block";
@@ -150,47 +152,95 @@ function resetBall() {
 }
 
 function bounce() {
-    if (Math.abs(xVelocity) <= 8.5 && elapsedTime >= 0.5) {
-        xVelocity *= 1.01;
-        elapsedTime = 0;
+    //Math.abs(xVelocity) <= 8.5 && 
+    if (xVelocity < 0) {
+        xVelocity -= .002;
+    } else {
+        xVelocity += .002;
     }
-    yPosition -= yVelocity;
-    xPosition += xVelocity;
-    if (yPosition <= 0) {
-        yPosition = 0;
-        yVelocity *= -1;
+    document.getElementById("xVel").innerHTML = xVelocity;
+    var newXPosition = xPosition + xVelocity;
+    if (xVelocity < 0) {
+        var xDir = -1;
+    } else {
+        var xDir = 1;
     }
-    if (yPosition >= innerHeight - ballHeight) {
-        yPosition = innerHeight - ballHeight;
-        yVelocity *= -1;
+    if (xDir === -1) {
+        while (xPosition > newXPosition) {
+            xPosition += xDir;
+            yPosition -= yVelocity / Math.abs(xVelocity);
+            if (xPosition <= 18 &&
+                xPosition >= 10 &&
+                yPosition >= playerOneLocation[0] - ballHeight &&
+                yPosition <= playerOneLocation[1]) {
+                xPosition = 18;
+                xVelocity *= -1;
+                break;
+            }
+            if (xPosition >= innerWidth) {
+                playerOneScore++;
+                scorer = 1;
+                playerScored();
+                break;
+            }
+            if (xPosition <= 0) {
+                playerTwoScore++;
+                scorer = 2;
+                playerScored();
+                break;
+            }
+            if (yPosition <= 0) {
+                yPosition = 0;
+                yVelocity *= -1;
+            }
+            if (yPosition >= innerHeight - ballHeight) {
+                yPosition = innerHeight - ballHeight;
+                yVelocity *= -1;
+            }
+            ball.style.top = yPosition + "px";
+            ball.style.left = xPosition + "px";
+        }
+    } else {
+        while (xPosition < newXPosition) {
+            xPosition += xDir;
+            yPosition -= yVelocity / Math.abs(xVelocity);
+            if (xPosition >= (innerWidth - ballHeight - 18) &&
+                xPosition <= (innerWidth - 10) &&
+                yPosition >= playerTwoLocation[0] - ballHeight &&
+                yPosition <= playerTwoLocation[1]) {
+                xPosition = innerWidth - ballHeight - 18;
+                xVelocity *= -1;
+                break;
+            }
+            if (xPosition >= innerWidth) {
+                playerOneScore++;
+                scorer = 1;
+                playerScored();
+                break;
+            }
+            if (xPosition <= 0) {
+                playerTwoScore++;
+                scorer = 2;
+                playerScored();
+                break;
+            }
+            if (yPosition <= 0) {
+                yPosition = 0;
+                yVelocity *= -1;
+            }
+            if (yPosition >= innerHeight - ballHeight) {
+                yPosition = innerHeight - ballHeight;
+                yVelocity *= -1;
+            }
+
+            ball.style.top = yPosition + "px";
+            ball.style.left = xPosition + "px";
+        }
     }
-    if (xPosition >= innerWidth) {
-        playerOneScore++;
-        scorer = 1;
-        playerScored();
-    }
-    if (xPosition <= 0) {
-        playerTwoScore++;
-        scorer = 2;
-        playerScored();
-    }
-    if (xPosition <= 18 &&
-        xPosition >= 10 &&
-        yPosition >= playerOneLocation[0] &&
-        yPosition <= playerOneLocation[1]) {
-        xPosition = 18;
-        xVelocity *= -1;
-    }
-    if (xPosition >= (innerWidth - ballHeight - 18) &&
-        xPosition <= (innerWidth - 10) &&
-        yPosition >= playerTwoLocation[0] &&
-        yPosition <= playerTwoLocation[1]) {
-        xPosition = innerWidth - ballHeight - 18;
-        xVelocity *= -1;
-    }
-    ball.style.top = yPosition + "px";
-    ball.style.left = xPosition + "px";
-    elapsedTime += 0.01;
+
+    // yPosition -= yVelocity;
+    // xPosition += xVelocity;
+
 }
 
 function countDown() {
