@@ -60,7 +60,7 @@ function startGame() {
     document.querySelector("#playerOneScore p").innerHTML = playerOneScore;
     document.querySelector("#playerTwoScore p").innerHTML = playerTwoScore;
     xVelocity = randomVelocity(5, 6);
-    yVelocity = randomVelocity(5, 7);
+    yVelocity = randomVelocity(4, 7);
     // xVelocity = 15;
     // yVelocity = 0;
     setTimeout(countDown, 100);
@@ -112,7 +112,7 @@ function randomVelocity(start, end) {
         posOrNeg = Math.floor(Math.random() * 9) - 5;
     }
     posOrNeg /= Math.abs(posOrNeg);
-    return (Math.floor(Math.random() * (end - start - 1)) + start) * posOrNeg;
+    return (Math.floor(Math.random() * (end - start + 1) + start)) * posOrNeg;
 }
 
 function gameWaiting() {
@@ -134,11 +134,11 @@ function resetBall() {
     document.getElementById("scored").style.display = "none";
     document.getElementById("scored").innerHTML = "";
     if (scorer === 1) {
-        xVelocity = Math.abs(randomVelocity(5, 7)) * -1;
+        xVelocity = Math.abs(randomVelocity(5, 6)) * -1;
     } else {
-        xVelocity = Math.abs(randomVelocity(5, 7));
+        xVelocity = Math.abs(randomVelocity(5, 6));
     }
-    yVelocity = randomVelocity(5, 7);
+    yVelocity = randomVelocity(4, 7);
     countdownNum = 3;
     setTimeout(countDown, 100);
     setTimeout(function () {
