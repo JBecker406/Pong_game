@@ -60,9 +60,9 @@ function startGame() {
     document.querySelector("#playerOneScore p").innerHTML = playerOneScore;
     document.querySelector("#playerTwoScore p").innerHTML = playerTwoScore;
     xVelocity = randomVelocity(5, 6);
-    yVelocity = randomVelocity(4, 7);
+    yVelocity = randomVelocity(4, 6);
     // xVelocity = 15;
-    // yVelocity = 0;
+    // yVelocity = 6;
     setTimeout(countDown, 100);
     setTimeout(function () {
         ball.style.display = "block";
@@ -138,7 +138,7 @@ function resetBall() {
     } else {
         xVelocity = Math.abs(randomVelocity(5, 6));
     }
-    yVelocity = randomVelocity(4, 7);
+    yVelocity = randomVelocity(4, 6);
     countdownNum = 3;
     setTimeout(countDown, 100);
     setTimeout(function () {
