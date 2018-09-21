@@ -189,3 +189,40 @@ body {
 #countdown {
     display: none;
 }
+
+#inGame {
+    display: none;
+}
+
+#playerSelect {
+    position: absolute;
+    margin-left: 25%;
+    min-width: 150px;
+    width: 50%;
+    float: left;
+}
+
+#playerSelect h1 {
+    font-size: calc(15px + 6vw);
+    text-align: center;
+}
+
+#playerSelect div {
+    font-size: calc(15px + 4vw);
+    position: absolute;
+    top: 5em;
+    padding: 15px;
+}
+
+.selected {
+    background-color: white;
+    color: black;
+}
+
+#onePlayerGame {
+    left: -2em;
+}
+
+#twoPlayerGame {
+    right: -2em;
+}

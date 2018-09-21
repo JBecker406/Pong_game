@@ -12,7 +12,9 @@ var yVelocity = 0;
 var xVelocity = 0;
 var playerOneScore = 0;
 var playerTwoScore = 0;
-var gameNotStarted = true;
+var gameNotStarted = false;
+var inPlayerMenu = true;
+var playerSelectionChanged = false;
 var bouncer = null;
 var xPosition = 0;
 var yPosition = 0;
@@ -30,23 +32,49 @@ window.addEventListener("keyup", function (e) {
     keyState[e.keyCode || e.which] = false;
 }, true);
 
+window.addEventListener("keyup", function() {
+    playerSelectionChanged = false;
+}, true);
 
 function gameControls(evt) {
-    if (gameNotStarted) {
-        if ((keyState[13] || keyState[13])) {
+    if (inPlayerMenu) {
+        var onePlayerSelection = document.getElementById("onePlayerGame");
+        var twoPlayerSelection = document.getElementById("twoPlayerGame");
+        if (keyState[37] || keyState[39]) {
+            if (!playerSelectionChanged) {
+                onePlayerSelection.classList.toggle("selected");
+                twoPlayerSelection.classList.toggle("selected");
+                playerSelectionChanged = true;
+            }
+        }
+        if (keyState[13]) {
+            if (onePlayerSelection.classList.contains("selected")) {
+                launchOnePlayerMenu();
+            } else {
+                document.getElementById("inGame").style.display = "block";
+                setTimeout(gameWaiting, 900);
+                setTimeout(function() {
+                    gameNotStarted = true;
+                }, 500);
+            }
+            document.getElementById("playerSelect").style.display = "none";
+            inPlayerMenu = false;
+        }
+    } else if (gameNotStarted) {
+        if (keyState[13]) {
             startGame();
         }
     } else {
-        if (keyState[87] || keyState[87]) {
+        if (keyState[87]) {
             movePlayerOneUp();
         }
-        if (keyState[83] || keyState[83]) {
+        if (keyState[83]) {
             movePlayerOneDown();
         }
-        if (keyState[38] || keyState[38]) {
+        if (keyState[38]) {
             movePlayerTwoUp();
         }
-        if (keyState[40] || keyState[40]) {
+        if (keyState[40]) {
             movePlayerTwoDown();
         }
     }
@@ -60,7 +88,7 @@ function startGame() {
     document.querySelector("#playerOneScore p").innerHTML = playerOneScore;
     document.querySelector("#playerTwoScore p").innerHTML = playerTwoScore;
     xVelocity = randomVelocity(5, 6);
-    yVelocity = randomVelocity(4, 6);
+    yVelocity = randomVelocity(4, 5);
     // xVelocity = 15;
     // yVelocity = 6;
     setTimeout(countDown, 100);
@@ -138,7 +166,7 @@ function resetBall() {
     } else {
         xVelocity = Math.abs(randomVelocity(5, 6));
     }
-    yVelocity = randomVelocity(4, 6);
+    yVelocity = randomVelocity(4, 5);
     countdownNum = 3;
     setTimeout(countDown, 100);
     setTimeout(function () {
@@ -317,5 +345,4 @@ function endGame() {
     }
 }
 
-setTimeout(gameWaiting, 900);
 gameControls();

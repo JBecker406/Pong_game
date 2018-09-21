@@ -8,20 +8,27 @@
     <title>Pong Test</title>
 </head>
 <body>
-    <div id="playerOneBar"></div>
-    <div id="playerTwoBar"></div>
-    <div id="ball"></div>
-    <div id="playerOneScore">
-        <h1>Player 1</h1>
-        <p>0</p>
+    <div id="playerSelect">
+        <h1>How many players?</h1>
+        <div id="onePlayerGame" class="selected">1 Player</div>
+        <div id="twoPlayerGame">2 Players</div>
     </div>
-    <div id="playerTwoScore">
-        <h1>Player 2</h1>
-        <p>0</p>
+    <div id="inGame">
+            <div id="playerOneBar"></div>
+            <div id="playerTwoBar"></div>
+            <div id="ball"></div>
+            <div id="playerOneScore">
+                <h1>Player 1</h1>
+                <p>0</p>
+            </div>
+            <div id="playerTwoScore">
+                <h1>Player 2</h1>
+                <p>0</p>
+            </div>
+            <div id="countdown"></div>
+            <div id="scored"></div>
+            <div id="gameStatus">Press Enter to Start!</div>
     </div>
-    <div id="countdown"></div>
-    <div id="scored"></div>
-    <div id="gameStatus">Press Enter to Start!</div>
     <script src="script.js"></script>
 </body>
 </html>
